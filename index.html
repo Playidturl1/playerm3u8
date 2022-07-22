@@ -1,0 +1,126 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://raw.githubusercontent.com/Playidturl1/playerm3u8/main/playidtv/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@1&display=swap" rel="stylesheet"> 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+$( document ).ready(function() {
+var a=0;
+
+$("#add").click(function(){
+a=a+1;
+var oneval='#EXTINF:-1 tvg-id="';
+var twoval='" group-title="';
+var thrval='" tvg-logo="';
+var fourval='",';
+var fiveval='';
+var result='<span>'+oneval+$("#fbox").val()+twoval+$("#sbox").val()+thrval+$("#tbox").val()+fourval+$("#fobox").val()+'<br/>'+$("#fibox").val()+'&nbsp&nbsp<a id="'+a+'" class="del"  href="javascript:void(0)"> ✖&nbsp</a>'+ '</span>';
+$('#output').prepend('<li id="list'+a+'" >' + result + '</li>');
+$("input[type=text]").val("");
+});
+
+$('#downloadLink').click(function(){
+  downloadInnerHtml(fileName, 'output','text/html');
+  location.reload();
+ });
+
+});
+
+$(document).on("click",".del",function() {
+	$("#list"+$(this).attr("id")).hide();
+});
+
+var fileName =  'Playlist.txt';
+
+function downloadInnerHtml(filename, elId, mimeType) {
+	var firstline='#EXTM3U url-tvg="https://raw.githubusercontent.com/Playidturl1/wiesplayw3u/main/guide.xml"';
+	$('#output').prepend('<li>' + firstline+ '</li>'+'<li></li>'+'<li></li>');
+var element = document.getElementById('output');
+const elem = element.querySelectorAll('.del');
+elem.forEach(e => e.remove());
+
+var link = document.createElement('a');
+mimeType = mimeType || 'text/plain';
+link.setAttribute('download', filename);
+link.setAttribute('href', 'data:' + mimeType + ';charset=utf-8,' + encodeURIComponent(element.innerText));
+link.click(); 
+}
+
+
+
+
+let timer;
+
+document.addEventListener('input', e => {
+  const el = e.target;
+  
+  if( el.matches('[data-color]') ) {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      document.documentElement.style.setProperty(`--color-${el.dataset.color}`, el.value);
+    }, 100)
+  }
+})
+
+</script>
+    <title>M3U PlayIDTV</title>
+
+</head>
+<body>
+   <nav>
+       <div class="brand"><h2>M3U PlayIDTV</h2></div>
+       <div class="list"><a href="https://playidtv.blogspot.com/2022/03/playidtv-tv.html?m=1"><i class="fa fa-blog" style="font-size:33px;color:rgb(26, 180, 252)"></i></a>
+       
+       </div>
+          
+      
+   </nav>
+
+
+<div class="card">
+<br>
+<h3>M3U  Playlist By PlayIDTV</h3>
+<input type="text" id="fbox" placeholder="Number">
+<input type="text" id="tbox" placeholder="Logo">
+<br>
+<input type="text" id="sbox" placeholder="Group Title">
+<input type="text" id="fobox" placeholder="Channel Name"><br>
+<input type="text" id="fibox" placeholder="Url"><br>
+<input type="button" value="+" id="add" class=".add"><br>
+<br><input type="button" value="Download M3U" id="downloadLink">
+
+
+</div>
+<br/>
+<br/>
+
+
+<br>
+<br>
+<div class="preview"><br>
+<ul id="output"></ul>
+</div>
+
+
+
+
+
+<div class="footer">
+   All Rights Reserved © 2022 &nbsp<a href="https://playidtv.blogspot.com/2022/03/playidtv-tv.html?m=1">PlayIDTV</a>
+</div>
+<body/>
+</html>
